@@ -21,7 +21,14 @@ venv/
 Thumbs.db
 
 # Storage
-app/storage/
+app/storage/*
+!app/storage/.gitkeep
+!app/storage/jobs/
+!app/storage/uploads/
+!app/storage/reports/
+!app/storage/jobs/.gitkeep
+!app/storage/uploads/.gitkeep
+!app/storage/reports/.gitkeep
 
 # Test cache
 .pytest_cache/
@@ -36,6 +43,8 @@ logs/
 
 # SQLite
 *.db
+*.sqlite
+*.sqlite3
 
 # Streamlit
 .streamlit/secrets.toml

@@ -1,0 +1,12 @@
+[project]
+name = "agentic-model-risk-validator"
+version = "0.1.0"
+description = "Agentic AI model validation workflow with deterministic metrics and OpenAI-backed report agents."
+requires-python = ">=3.11"
+readme = "README.md"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"
+

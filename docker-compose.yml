@@ -1,0 +1,28 @@
+services:
+  backend:
+    build: .
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4o-mini}
+      USE_LLM: ${USE_LLM:-true}
+      STORAGE_DIR: /app/app/storage
+      DATABASE_PATH: /app/app/storage/model_validator.sqlite
+    ports:
+      - "8000:8000"
+    volumes:
+      - validator-storage:/app/app/storage
+
+  frontend:
+    build: .
+    command: streamlit run frontend/streamlit_app.py --server.address 0.0.0.0 --server.port 8501
+    environment:
+      BACKEND_URL: http://backend:8000
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+
+volumes:
+  validator-storage:
+
