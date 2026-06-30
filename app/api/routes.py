@@ -15,6 +15,17 @@ from app.storage.db import get_job
 router = APIRouter()
 
 
+@router.get("/")
+def root() -> dict:
+    return {
+        "service": "Agentic Model Risk Validator API",
+        "status": "ok",
+        "docs_url": "/docs",
+        "health_url": "/health",
+        "frontend_url": "http://127.0.0.1:8501",
+    }
+
+
 @router.get("/health")
 def health() -> dict:
     return {"status": "ok"}
@@ -91,4 +102,3 @@ def download_report(job_id: str, format: str = "md") -> FileResponse:
         raise HTTPException(status_code=404, detail="Report not found")
     media_type = "application/pdf" if path.suffix == ".pdf" else "text/markdown"
     return FileResponse(path, media_type=media_type, filename=Path(path).name)
-
