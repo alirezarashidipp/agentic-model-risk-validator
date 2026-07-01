@@ -12,6 +12,11 @@
 
 
 
+
+
+
+
+
 An end-to-end AI model validation app that behaves like a lightweight Model Risk team.
 
 Upload model evidence, run deterministic Python validation tools, and let structured LLM agents turn the results into a clear validation report with findings, challenge questions, risk rating, and final decision.
