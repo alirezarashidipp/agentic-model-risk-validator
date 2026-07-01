@@ -5,7 +5,10 @@
 ![Streamlit](https://img.shields.io/badge/UI-Streamlit-ff4b4b)
 ![OpenAI](https://img.shields.io/badge/Agents-OpenAI-black)
 
-<img width="979" height="591" alt="image" src="https://github.com/user-attachments/assets/43ce3133-853a-4f88-b123-2fc3b10cb0fb" />
+
+
+<img width="956" height="596" alt="image" src="https://github.com/user-attachments/assets/6cb5ace6-c5cd-4414-9c8d-32f901a6e051" />
+
 
 
 
