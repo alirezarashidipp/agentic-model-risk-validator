@@ -5,6 +5,10 @@
 ![Streamlit](https://img.shields.io/badge/UI-Streamlit-ff4b4b)
 ![OpenAI](https://img.shields.io/badge/Agents-OpenAI-black)
 
+<img width="979" height="591" alt="image" src="https://github.com/user-attachments/assets/43ce3133-853a-4f88-b123-2fc3b10cb0fb" />
+
+
+
 An end-to-end AI model validation app that behaves like a lightweight Model Risk team.
 
 Upload model evidence, run deterministic Python validation tools, and let structured LLM agents turn the results into a clear validation report with findings, challenge questions, risk rating, and final decision.
