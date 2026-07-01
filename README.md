@@ -1,39 +1,52 @@
 # Agentic Model Risk Validator
 
-A full-stack Python project for validating machine learning models like a model risk or model validation team. Python tools calculate metrics and analysis artifacts; OpenAI-backed agents interpret those results and write the validation report.
+![Python](https://img.shields.io/badge/Python-3.11%2B-blue)
+![FastAPI](https://img.shields.io/badge/API-FastAPI-009688)
+![Streamlit](https://img.shields.io/badge/UI-Streamlit-ff4b4b)
+![OpenAI](https://img.shields.io/badge/Agents-OpenAI-black)
 
-## What It Does
+An end-to-end AI model validation app that behaves like a lightweight Model Risk team.
 
-- Upload a dataset, optional trained model, training code, metrics file, and documentation.
-- Run deterministic profiling, leakage checks, baseline training, performance metrics, explainability plots, and fairness summaries.
-- Use Pydantic schemas for every agent output.
-- Generate a Markdown report and PDF export.
-- Track jobs in SQLite under `app/storage`.
+Upload model evidence, run deterministic Python validation tools, and let structured LLM agents turn the results into a clear validation report with findings, challenge questions, risk rating, and final decision.
 
-The LLM is never asked to calculate metrics. It only receives Python-calculated evidence and writes structured interpretations.
+## Why It Is Different
 
-## Run With Docker
+The LLM never calculates metrics.
+
+Python computes profiling, leakage checks, model metrics, plots, explainability, and fairness summaries. OpenAI agents only interpret the evidence and write structured reviews using Pydantic schemas.
+
+## Features
+
+- FastAPI backend with SQLite job tracking
+- Streamlit validation UI
+- Dataset profiling, missing values, duplicates, outliers, imbalance, and leakage checks
+- Baseline model training with scikit-learn
+- Classification and regression metrics
+- Feature importance and SHAP support
+- Fairness checks when group attributes are available
+- Markdown and PDF validation reports
+- Docker, tests, sample data, and offline fallback agents
+
+## Quick Start
 
 ```bash
 cp .env.example .env
-# Add OPENAI_API_KEY to .env if you want live OpenAI agent calls.
 docker compose up --build
 ```
 
 Open:
 
-- FastAPI: http://localhost:8000/docs
-- Streamlit: http://localhost:8501
+- App: http://localhost:8501
+- API docs: http://localhost:8000/docs
 
-Without an API key, the app still runs with deterministic local fallback agent outputs so the project works end-to-end for development and tests.
+No API key? The project still runs locally with deterministic fallback agent outputs.
 
-## Run Locally
+## Local Dev
 
 ```bash
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-copy .env.example .env
 python scripts/generate_sample_data.py
 uvicorn app.main:app --reload
 ```
@@ -41,32 +54,15 @@ uvicorn app.main:app --reload
 In another terminal:
 
 ```bash
-.\.venv\Scripts\Activate.ps1
 streamlit run frontend/streamlit_app.py
 ```
 
-## API Usage
-
-Create a job and upload files:
+## API Example
 
 ```bash
-curl -X POST http://localhost:8000/upload ^
-  -F "dataset=@sample_data/credit_risk_sample.csv"
-```
-
-Run validation:
-
-```bash
-curl -X POST http://localhost:8000/validate ^
-  -H "Content-Type: application/json" ^
-  -d "{\"job_id\":\"JOB_ID\",\"target_column\":\"defaulted\",\"problem_type\":\"classification\"}"
-```
-
-Download report:
-
-```bash
-curl http://localhost:8000/reports/JOB_ID/download -o validation_report.md
-curl "http://localhost:8000/reports/JOB_ID/download?format=pdf" -o validation_report.pdf
+curl -X POST http://localhost:8000/validate \
+  -H "Content-Type: application/json" \
+  -d '{"target_column":"defaulted","problem_type":"classification"}'
 ```
 
 ## Tests
@@ -75,32 +71,13 @@ curl "http://localhost:8000/reports/JOB_ID/download?format=pdf" -o validation_re
 pytest
 ```
 
-## Project Structure
+## Stack
 
-```text
-app/
-  main.py
-  api/
-  agents/
-  schemas/
-  services/
-  storage/
-  tools/
-frontend/
-  streamlit_app.py
-sample_data/
-tests/
-```
+Python, FastAPI, Streamlit, OpenAI Responses API, Pydantic, pandas, NumPy, scikit-learn, SHAP, matplotlib, SQLite, pytest, Docker.
 
-## OpenAI Configuration
+## Output
 
-Set these in `.env`:
+The final report includes:
 
-```bash
-OPENAI_API_KEY=your_key_here
-OPENAI_MODEL=gpt-4o-mini
-USE_LLM=true
-```
-
-The OpenAI integration uses structured outputs with Pydantic models through the Responses API. `.env` is ignored by git.
+Executive summary, files reviewed, validation scope, data quality review, methodology review, performance review, explainability review, fairness review, governance review, key findings, challenge questions, LOW/MEDIUM/HIGH risk rating, recommendations, and final validation decision.
 
